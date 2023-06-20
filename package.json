@@ -2,6 +2,7 @@
   "name": "arvinjun-extensions",
   "displayName": "Arvinjun Extensions",
   "description": "vscode extension",
+  "publisher": "Arvinjun",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.7.0"
