@@ -2,4 +2,5 @@
 
 ## 功能
 
-- `Hello World` 弹框命令扩展
+- `remove console` 移除选中文本中所有的 `console.(log|info|error|table)`
+  - 快捷键 `cmd+shift+d`

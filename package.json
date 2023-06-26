@@ -11,14 +11,20 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:arvinjun-extensions.helloWorld"
+    "onCommand:editor.removeLog"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "arvinjun-extensions.helloWorld",
-        "title": "Hello World"
+        "command": "editor.removeLog",
+        "title": "remove console"
+      }
+    ],
+    "keybindings": [
+      {
+        "key": "cmd+shift+d",
+        "command": "editor.removeLog"
       }
     ]
   },
