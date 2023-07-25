@@ -3,7 +3,7 @@ import * as vscode from 'vscode';
 /**
  * 删除当前选中的文本中的所有 console.log
  */
-const removeLog = vscode.commands.registerCommand('editor.removeLog', () => {
+const removeLog = vscode.commands.registerCommand('general.removeLog', () => {
   const global = vscode.window;
   // vscode 当前编辑页的编辑器实例
   const editor = global.activeTextEditor;
