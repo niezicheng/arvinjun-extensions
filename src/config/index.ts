@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const get = require('lodash/get');
 
-export const rootPath = path.join(__dirname, '..');
+export const rootPath = path.join(__dirname, '../../../');
 export const packageJsonPath = path.join(rootPath, 'package.json');
 export const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
 

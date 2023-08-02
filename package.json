@@ -3,7 +3,6 @@
   "displayName": "Arvinjun Extensions",
   "description": "vscode extension",
   "publisher": "Arvinjun",
-  "icon": "images/logo.png",
   "version": "0.0.3",
   "engines": {
     "vscode": "^1.7.0"
@@ -15,14 +14,14 @@
     "onCommand:general.helloWorld",
     "onView:Arvinjun-General"
   ],
-  "main": "./out/extension.js",
+  "main": "./out/src/extension.js",
   "contributes": {
     "viewsContainers": {
       "activitybar": [
         {
           "id": "arvinjun",
           "title": "arvinjun",
-          "icon": "images/logo.png"
+          "icon": "images/logo.svg"
         }
       ]
     },
@@ -50,18 +49,19 @@
     ],
     "keybindings": [
       {
-        "key": "cmd+shift+d111",
+        "key": "cmd+shift+d",
         "command": "general.removeLog"
       }
     ]
   },
   "scripts": {
     "vscode:prepublish": "pnpm run compile",
-    "compile": "tsc -p ./",
+    "compile": "rm -rf ./out && tsc -p ./",
     "watch": "tsc -watch -p ./",
     "pretest": "pnpm run compile && pnpm run lint",
     "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js"
+    "test": "node ./out/test/runTest.js",
+    "release": "vsce publish"
   },
   "devDependencies": {
     "@types/glob": "^8.1.0",
