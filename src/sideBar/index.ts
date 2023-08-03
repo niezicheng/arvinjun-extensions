@@ -1,8 +1,8 @@
 // Arvinjun-sidebar.ts
 // 自定义侧边栏入口和面板
 import * as vscode from 'vscode';
-// import * as path from 'path';
-import { newViews } from '../config';
+import * as path from 'path';
+import { MENU_TREE_DATA } from '../config';
 
 type TViewItem = {
   command: string
@@ -24,7 +24,7 @@ export class SideBarEntryItem extends vscode.TreeItem {
     super(label, collapsibleState);
     this.tooltip = `${this.label}-${this.hotKey}`;
     this.description = this.hotKey ? `【快捷键: ${this.hotKey}】` : '';
-    // this.iconPath = this.icon ? path.join(__filename, "../../../", "images", this.icon) : '';
+    this.iconPath = this.icon ? path.join(__dirname, "../../", "images", this.icon) : '';
   }
 }
 
@@ -34,14 +34,13 @@ export class SideBarEntryItem extends vscode.TreeItem {
 export class SideBarEntry implements vscode.TreeDataProvider<SideBarEntryItem> {
   public id: string;
   public rootSideBars: SideBarEntryItem[] = [];
-  _onDidChangeTreeData: vscode.EventEmitter<unknown>;
-  onDidChangeTreeData: any;
+  public context?: vscode.ExtensionContext;
 
-  constructor(id: string, rootSideBars?: SideBarEntryItem[]) {
+  constructor(id: string, context?: vscode.ExtensionContext, rootSideBars?: SideBarEntryItem[]) {
     this.id = id,
+    this.context = context;
     this.rootSideBars = rootSideBars || [];
-    this._onDidChangeTreeData = new vscode.EventEmitter();
-    this.onDidChangeTreeData = this._onDidChangeTreeData.event;
+    this.context = context;
   }
 
   getTreeItem(element: SideBarEntryItem): vscode.TreeItem {
@@ -51,7 +50,7 @@ export class SideBarEntry implements vscode.TreeDataProvider<SideBarEntryItem> {
   getChildren(
     element?: SideBarEntryItem
   ): vscode.ProviderResult<SideBarEntryItem[]> {
-    const commands = newViews?.find((view: { id: string; }) => view.id === this.id)?.commands;
+    const commands = MENU_TREE_DATA?.find((view: { id: string; }) => view.id === this.id)?.commands;
     //子节点
     var childrenList: any = [];
     commands?.forEach((item: TViewItem, index: number) => {
@@ -74,8 +73,8 @@ export class SideBarEntry implements vscode.TreeDataProvider<SideBarEntryItem> {
 
 export default function (context: vscode.ExtensionContext) {
   // 注册侧边栏面板
-  const sidebarArvinjunGeneral = new SideBarEntry('Arvinjun-General');
-  const sidebarArvinjunPackageAnalysis = new SideBarEntry('Arvinjun-PackAnalysis');
+  const sidebarArvinjunGeneral = new SideBarEntry('Arvinjun-General', context);
+  const sidebarArvinjunPackageAnalysis = new SideBarEntry('Arvinjun-PackAnalysis', context);
 
   vscode.window.registerTreeDataProvider(
     sidebarArvinjunGeneral.id,
