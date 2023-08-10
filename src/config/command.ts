@@ -6,7 +6,6 @@ export const MENU_TREE_DATA = [
     commands: [
       {
         command: 'general.helloWorld',
-        hotKey: '',
         title: 'hello world',
         icon: 'demo.svg'
       },
@@ -15,6 +14,12 @@ export const MENU_TREE_DATA = [
         hotKey: 'cmd+shift+d',
         title: 'remove console',
         icon: 'remove.svg'
+      },
+      {
+        command: 'general.copyDirectoryToClipboard',
+        hotKey: 'cmd+shift+c',
+        title: 'copy directory to clipboard',
+        icon: 'directory.svg'
       },
     ]
   },

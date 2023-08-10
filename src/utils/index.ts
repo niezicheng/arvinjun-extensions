@@ -1,32 +1,19 @@
-import { TView, TViewItem, TCommand } from '../types';
-const fs = require('fs');
-const path = require('path');
-const get = require('lodash/get');
+import * as vscode from 'vscode';
+import { FolderType } from '../types';
 
-export const rootPath = path.join(__dirname, '../../../');
-export const packageJsonPath = path.join(rootPath, 'package.json');
-export const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
-
-export const activitybarId = get(packageJson, 'contributes.viewsContainers.activitybar[0].id', []);
-export const views = get(packageJson, `contributes.views.${activitybarId}`, []);
-export const commands = get(packageJson, 'contributes.commands', []);
-export const keybindings = get(packageJson, 'contributes.keybindings', []);
-
-// 依据 package.json 生成新的 views
-export const newViews: TView = views.map((view: TViewItem) => {
-  const newCommands: TCommand[] = commands
-    ?.filter((command: { command: string; }) => view.id?.toLowerCase()?.includes(command.command?.split('.')?.[0]))
-    ?.map((command: { command: string; title: any; }) => {
-      const keybinding = keybindings?.find((keybinding: { command: string }) => keybinding.command === command.command);
-      return {
-        command: command.command,
-        title: command.title,
-        hotKey: keybinding?.key,
-      };
+/**
+ * @description 因为 vscode 支持 Multi-root 工作区，暴力解决
+ * @summary 如果发现只有一个根文件夹，读取其子文件夹作为 workspaceFolders
+ * @link https://code.visualstudio.com/docs/editor/multi-root-workspaces
+ */
+export const getWorkSpaceFolders = () => {
+  const folders: FolderType[] = [];
+  vscode?.workspace?.workspaceFolders?.forEach((folder: any) => {
+    folders.push({
+      name: folder.name,
+      path: folder.uri.path,
     });
+  });
+  return folders;
+};
 
-  return {
-    ...view,
-    commands: newCommands,
-  };
-});

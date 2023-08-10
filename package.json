@@ -44,12 +44,20 @@
       {
         "command": "general.removeLog",
         "title": "remove console"
+      },
+      {
+        "command": "general.copyDirectoryToClipboard",
+        "title": "copy directory to clipboard"
       }
     ],
     "keybindings": [
       {
         "key": "cmd+shift+d",
         "command": "general.removeLog"
+      },
+      {
+        "key": "cmd+shift+c",
+        "command": "general.copyDirectoryToClipboard"
       }
     ]
   },
@@ -75,5 +83,9 @@
     "lodash": "^4.17.21",
     "mocha": "^10.2.0",
     "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "directory-tree": "^3.5.1",
+    "parse-gitignore": "^2.0.0"
   }
 }

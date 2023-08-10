@@ -7,12 +7,12 @@ import { MENU_TREE_DATA } from '../config';
 type TViewItem = {
   command: string
   title: string
-  hotKey: string
+  hotKey?: string
   icon?: string
 };
 
 /**
- * @description 重写每个节点
+ * @description 重写侧边栏入口子节点
  */
 export class SideBarEntryItem extends vscode.TreeItem {
   constructor(
@@ -22,14 +22,14 @@ export class SideBarEntryItem extends vscode.TreeItem {
     private icon?: string,
   ) {
     super(label, collapsibleState);
-    this.tooltip = `${this.label}-${this.hotKey}`;
+    this.tooltip = `${this.label}-${this.hotKey || ''}`;
     this.description = this.hotKey ? `【快捷键: ${this.hotKey}】` : '';
     this.iconPath = this.icon ? path.join(__dirname, "../../", "images", this.icon) : '';
   }
 }
 
 /**
- * @description 入口文件
+ * @description 重写侧边栏入口
  */
 export class SideBarEntry implements vscode.TreeDataProvider<SideBarEntryItem> {
   public id: string;
@@ -43,10 +43,12 @@ export class SideBarEntry implements vscode.TreeDataProvider<SideBarEntryItem> {
     this.context = context;
   }
 
+  // 重写父类属性
   getTreeItem(element: SideBarEntryItem): vscode.TreeItem {
     return element;
   }
 
+  // 重写父类方法
   getChildren(
     element?: SideBarEntryItem
   ): vscode.ProviderResult<SideBarEntryItem[]> {
@@ -72,7 +74,7 @@ export class SideBarEntry implements vscode.TreeDataProvider<SideBarEntryItem> {
 }
 
 export default function (context: vscode.ExtensionContext) {
-  // 注册侧边栏面板
+  // 注册侧边栏
   const sidebarArvinjunGeneral = new SideBarEntry('Arvinjun-General', context);
   const sidebarArvinjunPackageAnalysis = new SideBarEntry('Arvinjun-PackAnalysis', context);
 
