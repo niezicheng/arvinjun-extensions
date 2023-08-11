@@ -3,6 +3,10 @@
   "displayName": "Arvinjun Extensions",
   "description": "vscode extension",
   "publisher": "Arvinjun",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/niezicheng/arvinjun-extensions"
+  },
   "version": "0.0.6",
   "engines": {
     "vscode": "^1.7.0"
